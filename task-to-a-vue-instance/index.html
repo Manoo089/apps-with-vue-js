@@ -11,6 +11,13 @@
 <body>
     <div id="app">
         <p>Hello, my name is {{ userName }}.</p>
+        <p>
+            Heute ist
+            <b>{{ new Date().toLocaleString('de-DE', {weekday: "long"}) }}</b>, der {{ new Date().toLocaleString('de-DE', {day: day, month: month, year: year})}}.
+        </p>
+        <p>
+            Es ist jetzt genau: {{ new Date().toLocaleString('de-DE', {hour: hour, minute: minute, second: second} ) }}
+        </p>
     </div>
 
     <script src="https://unpkg.com/vue@next"></script>
@@ -19,6 +26,12 @@
             data() {
                 return {
                     userName: "John Doe",
+                    day: "numeric",
+                    month: "numeric",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric",
                 };
             },
         }).mount("#app");
