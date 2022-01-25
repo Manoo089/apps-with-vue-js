@@ -13,7 +13,13 @@
 
     <script src="https://unpkg.com/vue@next"></script>
     <script>
-        Vue.createApp({}).mount("#app");
+        Vue.createApp({
+            data() {
+                return {
+                    userName: "John Doe",
+                };
+            },
+        }).mount("#app");
     </script>
 </body>
 
