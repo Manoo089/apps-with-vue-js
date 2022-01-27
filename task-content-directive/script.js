@@ -10,4 +10,4 @@ Vue.createApp({
             this.vueVersion++;
         }, 2000);
     },
-});
+}).mount("#app");
