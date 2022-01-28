@@ -27,6 +27,28 @@
     <main>
       <div id="app" class="inside">
         <h1>My Books</h1>
+
+        <table>
+          <thead>
+            <tr>
+              <th v-for="columns in Object.keys(books[0])">{{ columns }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="{ title, isbn, author, publisher, price, numPages } of books"
+              :key="isbn"
+            >
+              <td v-text="title"></td>
+              <td v-text="isbn"></td>
+              <td v-text="author"></td>
+              <td v-text="publisher"></td>
+              <td v-text="price"></td>
+              <td v-text="numPages"></td>
+            </tr>
+          </tbody>
+        </table>
+
         <table>
           <thead>
             <tr>
