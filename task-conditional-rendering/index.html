@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task - Attribute Binding</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -48,18 +48,30 @@
             </button>
           </nav>
           <div class="tab-box__content tab-box tab-box__content--active">
-            <section class="tab-box__content-item">Content 1</section>
+            <section v-if="activeTab === 1" class="tab-box__content-item">
+              Content 1
+            </section>
             <section
+              v-if="activeTab === 2"
               class="tab-box__content-item tab-box__content-item--active"
             >
               Content 2
             </section>
-            <section class="tab-box__content-item">Content 3</section>
+            <section v-if="activeTab === 3" class="tab-box__content-item">
+              Content 3
+            </section>
+
+            <section
+              v-if="activeTab === 0 || activeTab > 3"
+              class="tab-box__content-item"
+            >
+              Kein Tab ausgewählt.
+            </section>
           </div>
         </div>
       </div>
     </main>
     <script src="https://unpkg.com/vue@next"></script>
-    <script src="scripts.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
