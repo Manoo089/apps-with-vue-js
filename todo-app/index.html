@@ -12,7 +12,18 @@
 <body>
     <header></header>
 
-    <main id="app"></main>
+    <main id="app">
+        <form @submit.prevent>
+            <input type="text" />
+            <button>Add Todo</button>
+        </form>
+
+        <div class="container__todos">
+            <ul>
+                <li v-for="todo of todos" :key="todo">{{ todo.title }}</li>
+            </ul>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="script.js"></script>

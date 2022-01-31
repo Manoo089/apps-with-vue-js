@@ -2,7 +2,10 @@ Vue.createApp({
     data() {
         return {
             inputTodo: "",
-            todos: [],
+            todos: [
+                { title: "Learn Vue", isDone: false },
+                { title: "Learn HTML", isDone: true },
+            ],
         };
     },
 }).mount("#app");
