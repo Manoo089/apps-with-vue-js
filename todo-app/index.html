@@ -13,20 +13,25 @@
     <header></header>
 
     <main id="app">
-        <form @submit.prevent>
-            <input type="text" />
+        <form @submit.prevent="addTodo">
+            <input type="text" v-model="inputTodo" @keyup.enter.once="addTodo" />
+
             <button>Add Todo</button>
+            <p>OR press Enter</p>
         </form>
 
         <div class="container__todos">
+            <p v-if="isTodoPresent">Keine Todos vorhanden.</p>
             <ul>
-                <li v-for="todo of todos" :key="todo">{{ todo.title }}</li>
-            </ul>
-        </div>
+                <li v-for="todo of todos" :key="todo">
+                    {{ todo.title }} {{ todo.date}}<span><button @click="deleteTodo(todo)">Delete</button></span
+            >
+          </li>
+        </ul>
+      </div>
     </main>
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
