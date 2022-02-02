@@ -27,36 +27,51 @@
         <div class="container__todos">
             <p v-if="isTodoPresent">Keine Todos vorhanden.</p>
             <ul class="todos__list">
-                <template v-for="todo of todos" :key="todo">
+                <template v-for="todo of todos" :key="todo.id">
             <li
               class="todos__todo"
-              :class="{active: todo.isDone}"
+              :class="{active: todo.done}"
               v-if="filter === 'all'"
             >
-              <span><input type="checkbox" v-model="todo.isDone" /></span> {{
-              todo.title }}
+              <span
+                ><input
+                  type="checkbox"
+                  v-model="todo.done"
+                  @change="updateTodo(todo)"
+              /></span>
+              {{ todo.description }}
             </li>
           </template>
 
-                <template v-for="todo of openTodo" :key="todo">
+                <template v-for="todo in openTodo" :key="todo.id">
             <li
               class="todos__todo"
-              :class="{active: todo.isDone}"
+              :class="{active: todo.done}"
               v-if="filter === 'open'"
             >
-              <span><input type="checkbox" v-model="todo.isDone" /></span> {{
-              todo.title }}
+              <span
+                ><input
+                  type="checkbox"
+                  v-model="todo.done"
+                  @change="updateTodo(todo)"
+              /></span>
+              {{ todo.description }}
             </li>
           </template>
 
-                <template v-for="todo of doneTodo" :key="todo">
+                <template v-for="todo of doneTodo" :key="todo.id">
             <li
               class="todos__todo"
-              :class="{active: todo.isDone}"
+              :class="{active: todo.done}"
               v-if="filter === 'done'"
             >
-              <span><input type="checkbox" v-model="todo.isDone" /></span> {{
-              todo.title }}
+              <span
+                ><input
+                  type="checkbox"
+                  v-model="todo.done"
+                  @change="updateTodo(todo)"
+              /></span>
+              {{ todo.description }}
             </li>
           </template>
             </ul>

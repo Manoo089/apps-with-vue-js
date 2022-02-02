@@ -2,27 +2,68 @@ Vue.createApp({
     data() {
         return {
             inputTodo: "",
-            todos: [
-                { title: "Learn Vue", isDone: false },
-                { title: "Learn HTML", isDone: true },
-            ],
+            todos: [],
             filter: "all",
         };
     },
     methods: {
+        loadTodos() {
+            fetch("http://localhost:4730/todos")
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    } else {
+                        alert("Da hat was nicht funktioniert!");
+                    }
+                })
+                .then((data) => {
+                    this.todos = data;
+                });
+        },
         addTodo() {
             if (this.inputTodo === "") {
                 alert("Du hast keine Eingabe gemacht!");
             } else {
-                const newTodo = { title: this.inputTodo, isDone: false };
-                this.todos.push(newTodo);
+                fetch("http://localhost:4730/todos", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            id: "",
+                            description: this.inputTodo,
+                            done: false,
+                        }),
+                    })
+                    .then((res) => res.json())
+                    .then((newTodo) => {
+                        this.todos.push(newTodo);
+                    });
                 this.inputTodo = "";
             }
         },
         deleteTodo() {
-            this.todos = this.todos.filter((todo) => {
-                return !todo.isDone;
+            const doneTodos = [];
+
+            this.todos.forEach((todo) => {
+                if (todo.done) {
+                    doneTodos.push(
+                        fetch("http://localhost:4730/todos/" + todo.id, {
+                            method: "DELETE",
+                        })
+                    );
+                }
             });
+            Promise.all(doneTodos).then(() => {
+                this.loadTodos();
+            });
+        },
+        updateTodo(todo) {
+            fetch("http://localhost:4730/todos/" + todo.id, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(todo),
+                })
+                .then((res) => res.json())
+                .then((updatedTodo) => {});
         },
     },
     computed: {
@@ -34,13 +75,16 @@ Vue.createApp({
         },
         openTodo() {
             return this.todos.filter((todo) => {
-                return todo.isDone === false;
+                return todo.done === false;
             });
         },
         doneTodo() {
             return this.todos.filter((todo) => {
-                return todo.isDone === true;
+                return todo.done === true;
             });
         },
+    },
+    created() {
+        this.loadTodos();
     },
 }).mount("#app");
