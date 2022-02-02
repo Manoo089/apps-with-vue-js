@@ -18,13 +18,10 @@ Vue.createApp({
                 this.inputTodo = "";
             }
         },
-        deleteTodo(removeTodo) {
+        deleteTodo() {
             this.todos = this.todos.filter((todo) => {
-                return todo !== removeTodo;
+                return !todo.isDone;
             });
-        },
-        deleteAllTodos() {
-            console.log("gelöscht");
         },
     },
     computed: {

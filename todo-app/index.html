@@ -6,32 +6,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet" />
     <title>Todo-App</title>
 </head>
 
 <body>
-    <header></header>
+    <header>
+        <h1>todos</h1>
+    </header>
 
-    <main id="app">
-        <form @submit.prevent="addTodo">
-            <input type="text" v-model="inputTodo" @keyup.enter.once="addTodo" />
+    <main id="app" class="main">
+        <form class="form" @submit.prevent="addTodo">
+            <input class="input__todo" type="text" v-model.trim="inputTodo" @keyup.enter.once="addTodo" placeholder="What needs to be done?" />
 
-            <button>Add Todo</button>
-            <p>OR press Enter</p>
+            <button style="display: none">Add Todo</button>
         </form>
 
         <div class="container__todos">
             <p v-if="isTodoPresent">Keine Todos vorhanden.</p>
-            <ul>
-                <li v-for="todo of todos" :key="todo">
-                    {{ todo.title }} {{ todo.date}}<span><button @click="deleteTodo(todo)">Delete</button></span
-            >
-          </li>
-        </ul>
-      </div>
+            <ul class="todos__list">
+                <li class="todos__todo" v-for="todo of todos" :key="todo" :class="{active: todo.isDone}">
+                    <span><input type="checkbox" v-model="todo.isDone" /></span> {{ todo.title }}
+                </li>
+            </ul>
+        </div>
+
+        <div class="options__container">
+            <div class="filter__container">
+                <h2>Filter</h2>
+                <div class="filter__radio">
+                    <label for="all">All</label>
+                    <input type="radio" name="filter" id="radio-all" value="all" checked />
+                </div>
+                <div class="filter__radio">
+                    <label for="open">Open</label>
+                    <input type="radio" name="filter" id="radio-open" value="open" />
+                </div>
+                <div class="filter__radio">
+                    <label for="done">Done</label>
+                    <input type="radio" name="filter" id="radio-done" value="done" />
+                </div>
+            </div>
+
+            <div class="remove__container">
+                <button @click="deleteTodo">Remove done todos</button>
+            </div>
+        </div>
     </main>
 
     <script src="https://unpkg.com/vue@next"></script>
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
