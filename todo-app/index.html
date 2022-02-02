@@ -27,9 +27,38 @@
         <div class="container__todos">
             <p v-if="isTodoPresent">Keine Todos vorhanden.</p>
             <ul class="todos__list">
-                <li class="todos__todo" v-for="todo of todos" :key="todo" :class="{active: todo.isDone}">
-                    <span><input type="checkbox" v-model="todo.isDone" /></span> {{ todo.title }}
-                </li>
+                <template v-for="todo of todos" :key="todo">
+            <li
+              class="todos__todo"
+              :class="{active: todo.isDone}"
+              v-if="filter === 'all'"
+            >
+              <span><input type="checkbox" v-model="todo.isDone" /></span> {{
+              todo.title }}
+            </li>
+          </template>
+
+                <template v-for="todo of openTodo" :key="todo">
+            <li
+              class="todos__todo"
+              :class="{active: todo.isDone}"
+              v-if="filter === 'open'"
+            >
+              <span><input type="checkbox" v-model="todo.isDone" /></span> {{
+              todo.title }}
+            </li>
+          </template>
+
+                <template v-for="todo of doneTodo" :key="todo">
+            <li
+              class="todos__todo"
+              :class="{active: todo.isDone}"
+              v-if="filter === 'done'"
+            >
+              <span><input type="checkbox" v-model="todo.isDone" /></span> {{
+              todo.title }}
+            </li>
+          </template>
             </ul>
         </div>
 
@@ -38,15 +67,15 @@
                 <h2>Filter</h2>
                 <div class="filter__radio">
                     <label for="all">All</label>
-                    <input type="radio" name="filter" id="radio-all" value="all" checked />
+                    <input type="radio" name="filter" id="radio-all" value="all" v-model="filter" checked />
                 </div>
                 <div class="filter__radio">
                     <label for="open">Open</label>
-                    <input type="radio" name="filter" id="radio-open" value="open" />
+                    <input type="radio" name="filter" id="radio-open" value="open" v-model="filter" />
                 </div>
                 <div class="filter__radio">
                     <label for="done">Done</label>
-                    <input type="radio" name="filter" id="radio-done" value="done" />
+                    <input type="radio" name="filter" id="radio-done" value="done" v-model="filter" />
                 </div>
             </div>
 

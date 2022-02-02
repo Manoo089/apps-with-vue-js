@@ -6,6 +6,7 @@ Vue.createApp({
                 { title: "Learn Vue", isDone: false },
                 { title: "Learn HTML", isDone: true },
             ],
+            filter: "all",
         };
     },
     methods: {
@@ -30,6 +31,16 @@ Vue.createApp({
         },
         isEmpty() {
             return this.inputTodo === "";
+        },
+        openTodo() {
+            return this.todos.filter((todo) => {
+                return todo.isDone === false;
+            });
+        },
+        doneTodo() {
+            return this.todos.filter((todo) => {
+                return todo.isDone === true;
+            });
         },
     },
 }).mount("#app");
